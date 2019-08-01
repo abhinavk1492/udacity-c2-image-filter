@@ -2,19 +2,24 @@ import sys
 import cv2
 import os
 
-inputDir = '/mock/'
+inputDir = '/util/mock/'
 outputDir = '/out/'
-fileName = 'xander2.jpg'
+fileName = sys.argv[1]
+filePath = sys.argv[2]
 failed = False
 
 def process(fileName, inputDir, outputDir):
     # We need an absolute path
+    print("fileName: "+fileName)
+    # dir_path = '/Users/abhinavk/Documents/udacity-projects/udacity-c2-image-filter/src'
     dir_path = os.path.dirname(os.path.realpath(__file__))
+    # dir_path = sys.argv[1]
 
     # Load the image from disk
     img = cv2.imread(dir_path+inputDir+fileName,0)
     if img is None:
-        return False, "Image Failed to Load"
+        raise Exception("Image Failed to Load")
+        # return False, "Image Failed to Load"
 
     # Apply the Canny edge detection filter
     filtered = cv2.Canny(img, 50, 50)
@@ -32,4 +37,5 @@ def process(fileName, inputDir, outputDir):
 isSuccess, message = process(fileName, inputDir, outputDir)
 print(isSuccess)
 print(message)
+# print(fileName)
 sys.stdout.flush()
