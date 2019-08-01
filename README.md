@@ -2,6 +2,32 @@
 
 Github Link: https://github.com/abhinavk1492/udacity-c2-image-filter
 
+Endpoint URL: udacity-c2-image-filter-dev.us-east-1.elasticbeanstalk.com
+
+Instructions: 
+
+1. Whenever you are testing the endpoint, do a POST operation from postman. Then it works properly. USe Postman for that, not a browser. A browser by default does a GET operation.
+
+2. The deployment screenshot submitted is from my AWS account only, please refer the username on top right corner.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Udagram is a simple cloud application developed along side the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
 
 The project is split into three parts:
