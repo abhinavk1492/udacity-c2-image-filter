@@ -19,40 +19,40 @@ import { POINT_CONVERSION_COMPRESSED } from 'constants';
     next();
   });
 
+  
   // filterimage
-  // endpoint for image filter
+  // endpoint for posting and getting image filter
   // accepts public image url as input
-  // POST METHOD 
-  app.post("/filterimage", async (req: Request, res: Response) => {
-
-    const { image_url } = req.query;
-    if (!image_url) {
-      return res.status(422).send(`image_url must be provided`);
-    }
-    try {
-
-      // call filterImageFromURL method from util.ts
-      let file = await filterImageFromURL(image_url);
-      console.log('filePath is: '+ file) // log statements to debug 
-      var path = require('path');
-      
-      var filename = path.basename(file);
-      console.log(filename);
-
-      // on finish, delete local files
-      res.on("finish", () => {
-        deleteLocalFiles([file])
+  // GET METHOD 
+  app.get("/filterimage", async (req: Request, res: Response) => {
+    
+        const { image_url } = req.query;
+        if (!image_url) {
+          return res.status(422).send(`image_url must be provided`);
+        }
+        try {
+    
+          // call filterImageFromURL method from util.ts
+          let file = await filterImageFromURL(image_url);
+          console.log('filePath is: '+ file) // log statements to debug 
+          var path = require('path');
+          
+          var filename = path.basename(file);
+          console.log(filename);
+    
+          // on finish, delete local files
+          res.on("finish", () => {
+            deleteLocalFiles([file])
+          })
+    
+          // send filtered image as response with status 200
+          res.status(200).sendFile(file);
+    
+        } catch (e) {
+          console.log('exception: '+e.message)
+          return res.send(e.message).status(422);
+        }
       })
-
-      // send filtered image as response with status 200
-      res.status(200).sendFile(file);
-
-    } catch (e) {
-      console.log('exception: '+e.message)
-      return res.send(e.message).status(422);
-    }
-  })
-
 
   // Root URI call
   app.get( "/", async ( req:any, res:any ) => {
@@ -66,6 +66,8 @@ import { POINT_CONVERSION_COMPRESSED } from 'constants';
       console.log( `press CTRL+C to stop server` );
   } );
 })();
+
+
 
 
 // obsolete code to handle python script image_filter.py
