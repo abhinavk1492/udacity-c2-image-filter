@@ -25,10 +25,10 @@ const util_1 = require("./util/util");
         next();
     });
     // filterimage
-    // endpoint for image filter
+    // endpoint for posting and getting image filter
     // accepts public image url as input
-    // POST METHOD 
-    app.post("/filterimage", (req, res) => __awaiter(this, void 0, void 0, function* () {
+    // GET METHOD 
+    app.get("/filterimage", (req, res) => __awaiter(this, void 0, void 0, function* () {
         const { image_url } = req.query;
         if (!image_url) {
             return res.status(422).send(`image_url must be provided`);
